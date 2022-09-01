@@ -1,5 +1,32 @@
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 from Controladores.ControladorCandidato import ControladorCandidato
 
 
@@ -7,11 +34,10 @@ from Controladores.ControladorCandidato import ControladorCandidato
 miControladorCandidato = ControladorCandidato()
 
 
-@app.route("/", methods=['GET'])
-def test():
-    json = {}
-    json["message"] = "Server running ..."
-    return jsonify(json)
+
+
+
+
 
 
 @app.route("/candidatos", methods=['GET'])
@@ -46,13 +72,3 @@ def eliminarCandidato(id):
     return jsonify(json)
 
 
-def loadFileConfig():
-    with open('config.json') as file:
-        data = json.load(file)
-    return data
-
-
-if __name__ == '__main__':
-    dataConfig = loadFileConfig()
-    print("Server running : " + "http://" + dataConfig["url-backend"] + ":" + str(dataConfig["port"]))
-    serve(app, host=dataConfig["url-backend"], port=dataConfig["port"])
