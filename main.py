@@ -1,14 +1,8 @@
-from flask import Flask
-from flask import jsonify
-from flask import request
-from flask_cors import CORS
-import json
-from waitress import serve
+
 
 from Controladores.ControladorCandidato import ControladorCandidato
 
-app = Flask(__name__)
-cors = CORS(app)
+
 
 miControladorCandidato = ControladorCandidato()
 
