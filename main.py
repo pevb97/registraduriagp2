@@ -8,12 +8,6 @@ from waitress import serve
 app = Flask(__name__)
 cors = CORS(app)
 
-from Controladores.ControladorUsuario import ControladorUsuario
-miControladorUsuario=ControladorUsuario()
-
-from Controladores.ControladorRoles import ControladorRoles
-miControladorRoles=ControladorRoles()
-
 from Controladores.ControladorPartido import ControladorPartido
 miControladorPartido=ControladorPartido()
 
@@ -34,44 +28,6 @@ def test():
     json["message"] = "Server running ..."
     return jsonify(json)
 
-#usuarios
-
-@app.route("/Usuarios",methods=['GET'])
-def getUsuario():
-    json=miControladorUsuario.index()
-    return jsonify(json)
-
-
-@app.route("/Usuarios",methods=['POST'])
-def crearUsuario():
-    data = request.get_json()
-    json=miControladorUsuario.create(data)
-    return jsonify(json)
-@app.route("/Usuarios/<string:id>",methods=['GET'])
-def getUsuario1(id):
-    json=miControladorUsuario.show(id)
-    return jsonify(json)
-@app.route("/Usuarios/<string:id>",methods=['PUT'])
-def modificarUsuario(id):
-    data = request.get_json()
-    json=miControladorUsuario.update(id,data)
-    return jsonify(json)
-@app.route("/Usuarios/<string:id>",methods=['DELETE'])
-def eliminarUsuario(id):
-    json=miControladorUsuario.delete(id)
-    return jsonify(json)
-
-#roles
-
-@app.route("/Roles",methods=['GET'])
-def getRol():
-    json=miControladorRoles.index()
-    return jsonify(json)
-@app.route("/Roles/<string:id>",methods=['PUT'])
-def modificarRol(id):
-    data = request.get_json()
-    json=miControladorRoles.update(id,data)
-    return jsonify(json)
 
 # candidatos
 
