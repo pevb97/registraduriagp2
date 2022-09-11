@@ -218,7 +218,7 @@ def crearMesas():
 
 @app.route("/mesas/<string:id>",methods=['GET'])
 
-def getMesas(id):
+def getMesa(id):
 
     json=miControladorMesas.show(id)
 
