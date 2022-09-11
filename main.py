@@ -20,6 +20,9 @@ miControladorReportes = ControladorReportes()
 from Controladores.ControladorResultados import ControladorResultados
 miControladorResultados = ControladorResultados()
 
+from Controladores.ControladorMesas import ControladorMesas
+miControladorMesas = ControladorMesas()
+
 ## funcionalidad de prueba
 @app.route("/", methods=['GET'])
 
@@ -127,15 +130,6 @@ def eliminarPartido(id):
 
     return jsonify(json)
 
-def loadFileConfig():
-
-    with open('config.json') as file:
-
-        data = json.load(file)
-
-    return data
-
-
 
 #resultados
 
@@ -203,6 +197,50 @@ def getPartidosIdMesa(idMesa):
     json=miControladorReportes.listadoPartidosMesa(idMesa)
     return jsonify(json)
 
+# mesas. funciaonalidad de numero de mesas y numero de cedulas por emsa inscritas
+@app.route("/mesas",methods=['GET'])
+
+def getMesas():
+
+    json=miControladorMesas.index()
+
+    return jsonify(json)
+
+@app.route("/mesas",methods=['POST'])
+
+def crearMesas():
+
+    data = request.get_json()
+
+    json=miControladorMesas.create(data)
+
+    return jsonify(json)
+
+@app.route("/mesas/<string:id>",methods=['GET'])
+
+def getMesas(id):
+
+    json=miControladorMesas.show(id)
+
+    return jsonify(json)
+
+@app.route("/mesas/<string:id>",methods=['PUT'])
+
+def modificarMesas(id):
+
+    data = request.get_json()
+
+    json=miControladorMesas.update(id,data)
+
+    return jsonify(json)
+
+@app.route("/mesas/<string:id>",methods=['DELETE'])
+
+def eliminarMesas(id):
+
+    json=miControladorMesas.delete(id)
+
+    return jsonify(json)
 
 def loadFileConfig():
     with open('Config.json') as file:
