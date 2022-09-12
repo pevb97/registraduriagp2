@@ -35,7 +35,7 @@ class ControladorCandidato():
 
     # Funcion de eliminacion de un candidato por su ID(DELETE)
     def delete(self, id):
-        return self.repositorioCandidato(id)
+        return self.repositorioCandidato.delete(id)
 
 
     # Relacion entre Partido y Candidato (1 -> N)
