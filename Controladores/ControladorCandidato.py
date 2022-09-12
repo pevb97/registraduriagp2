@@ -1,8 +1,10 @@
 from Modelos.Candidato import Candidato
 
+
 class ControladorCandidato():
     def __init__(self):
         print("Creando controlador candidato")
+        self.
 
     # Funcion que trae la lista de todos los candidatos con sus atributos(READ)
     def index(self):
