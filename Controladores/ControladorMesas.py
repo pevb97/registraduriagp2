@@ -13,12 +13,13 @@ class ControladorMesas():
         nuevoMesas=Mesas(infoMesas)
         return self.repositorioMesas.save(nuevoMesas)
     def show(self,id):
-        elMesas=Mesas(self.repositorioMesas.findById(id))
-        return elMesas.__dict__
+        laMesa=Mesas(self.repositorioMesas.findById(id))
+        return laMesa.__dict__
     def update(self,id,infoMesas):
-        MesasActual=Mesas(self.repositorioMesas.findById(id))
-        MesasActual.nombre = infoMesas["nombre"]
-        MesasActual.descripcion = infoMesas["descripcion"]
-        return self.repositorioMesas.save(MesasActual)
+        MesaActual=Mesas(self.repositorioMesas.findById(id))
+        MesaActual.nombre = infoMesas["nombre"]
+        MesaActual.descripcion = infoMesas["descripcion"]
+        MesaActual.nrocedulas = infoMesas["nrocedulas"]
+        return self.repositorioMesas.save(MesaActual)
     def delete(self,id):
         return self.repositorioMesas.delete(id)
