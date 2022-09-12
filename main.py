@@ -204,6 +204,14 @@ def getPartidosIdMesa(idMesa):
     return jsonify(json)
 
 
+# RUTA PARTIDO - CANDIDATO
+
+@app.route("/candidatos/<string:id>/partido/<string:id_partido>", methods=['PUT'])
+def asignarPartidoACandidato(id, id_partido):
+    json = miControladorCandidato.asignarPartido(id, id_partido)
+    return jsonify(json)
+
+
 def loadFileConfig():
     with open('Config.json') as file:
         data = json.load(file)
