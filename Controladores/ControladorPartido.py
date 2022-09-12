@@ -1,46 +1,24 @@
+from Repositorios.RepositorioPartido import RepositorioPartido
 from Modelos.Partido import Partido
 
 class ControladorPartido():
+
     def __init__(self):
-        print("Creando ControladorPartido")
+        self.repositorioPartido = RepositorioPartido()
 
-    #Función que trae la lista de todos los partidos con sus atributos
     def index(self):
-        print ("Listar todos los partidos")
-        unPartido={
-            "_id":"ColombiaHumana2022",
-            "Nit":"12345",
-            "Presidente":"Gustavo Petro",
-            "movimiento":"izquierda"
+        return self.repositorioPartido.findAll()
 
-        }
-        return [unPartido]
-
-    #Crear un objeto de la clase Partido y despues se manda a guardar con un metodo a la DB
     def create(self,infoPartido):
-        print("Crear un partido")
-        elPartido=Partido(infoPartido)
-        return elPartido.__dict__
-
-
-    #Funcion para mostrar un objeto Partido según su id
+        nuevoPartido=Partido(infoPartido)
+        return self.repositorioPartido.save(nuevoPartido)
     def show(self,id):
-        print("Mostrando un Partido con id", id)
-        elPartido = {
-            "_id":"ColombiaHumana2022",
-            "Nit":"12345",
-            "Presidente":"Gustavo Petro",
-            "movimiento":"izquierda"
-        }
-        return elPartido
-
-    # Funcion para actulizar la informacion de un Partido
-    def update(self, id, infoPartido):
-        print("Actualizando Partido con el id ", id)
-        elPartido=Partido(infoPartido)
+        elPartido=Partido(self.repositorioPartido.findById(id))
         return elPartido.__dict__
-
-   # Funcion para eliminar un Partido
-    def delete(self, id):
-        print("Eliminando partido con el id ", id)
-        return {"deletd_cout":1}
+    def update(self,id,infoPartido):
+        PartidoActual=Partido(self.repositorioPartido.findById(id))
+        PartidoActual.nombre = infoPartido["nombre"]
+        PartidoActual.lema = infoPartido["lema"]
+        return self.repositorioPartido.save(PartidoActual)
+    def delete(self,id):
+        return self.repositorioPartido.delete(id)
