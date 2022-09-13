@@ -23,6 +23,12 @@ miControladorResultados = ControladorResultados()
 from Controladores.ControladorMesas import ControladorMesas
 miControladorMesas = ControladorMesas()
 
+from Controladores.ControladorResolucion import ControladorResolucion
+miControladorResolucion = ControladorResolucion()
+
+from Controladores.ControladorVoto import ControladorVoto
+miControladorVoto = ControladorVoto()
+
 ## funcionalidad de prueba
 @app.route("/", methods=['GET'])
 
@@ -33,8 +39,6 @@ def test():
 
 
 # candidatos
-
-
 
 @app.route("/candidatos", methods=['GET'])
 
@@ -80,11 +84,12 @@ def eliminarCandidato(id):
 
     return jsonify(json)
 
+@app.route("/candidatos/<string:id>/resolucion/<string:id_resolucion>",methods=['PUT'])
+def asignarCandidatoResolucion(id, id_resolucion):
+    json = miControladorCandidato.asignarResolucion(id, id_resolucion)
+    return jsonify(json)
+
 #partidos
-
-
-
-
 
 @app.route("/partidos",methods=['GET'])
 
@@ -130,7 +135,111 @@ def eliminarPartido(id):
 
     return jsonify(json)
 
+###############
+#Resolucion
 
+@app.route("/resolucion",methods=['GET'])
+
+def getResoluciones():
+
+    json=miControladorResolucion.index()
+
+    return jsonify(json)
+
+@app.route("/resolucion",methods=['POST'])
+
+def crearResolucion():
+
+    data = request.get_json()
+
+    json=miControladorResolucion.create(data)
+
+    return jsonify(json)
+
+@app.route("/resolucion/<string:id>",methods=['GET'])
+
+def getResolucion(id):
+
+    json=miControladorResolucion.show(id)
+
+    return jsonify(json)
+
+@app.route("/resolucion/<string:id>",methods=['PUT'])
+
+def modificarResolucion(id):
+
+    data = request.get_json()
+
+    json=miControladorResolucion.update(id,data)
+
+    return jsonify(json)
+
+@app.route("/resolucion/<string:id>",methods=['DELETE'])
+
+def eliminarResolucion(id):
+
+    json=miControladorResolucion.delete(id)
+
+    return jsonify(json)
+
+@app.route("/resolucion/<string:id>/partido/<string:id_partido>",methods=['PUT'])
+def asignarResolucionPartido(id, id_partido):
+    json = miControladorResolucion.asignarPartido(id, id_partido)
+    return jsonify(json)
+
+###############
+#Voto
+
+@app.route("/voto",methods=['GET'])
+
+def getVotos():
+
+    json=miControladorVoto.index()
+
+    return jsonify(json)
+
+@app.route("/voto",methods=['POST'])
+
+def crearVoto():
+
+    data = request.get_json()
+
+    json=miControladorVoto.create(data)
+
+    return jsonify(json)
+
+@app.route("/voto/<string:id>",methods=['GET'])
+
+def getVoto(id):
+
+    json=miControladorVoto.show(id)
+
+    return jsonify(json)
+
+@app.route("/voto/<string:id>",methods=['PUT'])
+
+def modificarVoto(id):
+
+    data = request.get_json()
+
+    json=miControladorVoto.update(id,data)
+
+    return jsonify(json)
+
+@app.route("/voto/<string:id>",methods=['DELETE'])
+
+def eliminarVoto(id):
+
+    json=miControladorVoto.delete(id)
+
+    return jsonify(json)
+
+@app.route("/voto/<string:id>/candidato/<string:id_candidato>/mesa/<string:id_mesa>",methods=['PUT'])
+def asignarDatosVoto(id, id_candidato,id_mesa):
+    json = miControladorVoto.asignarVoto(id, id_candidato,id_mesa)
+    return jsonify(json)
+
+###############################################
 #resultados
 
 # funcionalidad de obtener lista de los resultados
