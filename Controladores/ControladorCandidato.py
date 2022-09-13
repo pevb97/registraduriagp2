@@ -1,7 +1,9 @@
 from Repositorios.RepositorioCandidato import RepositorioCandidato
 from Repositorios.RepositorioPartido import RepositorioPartido
+from Repositorios.RepositorioResolucion import RepositorioResolucion
 
 from Modelos.Candidato import Candidato
+from Modelos.Resolucion import Resolucion
 from Modelos.Partido import Partido
 
 
@@ -9,6 +11,7 @@ class ControladorCandidato():
     def __init__(self):
         self.repositorioCandidato = RepositorioCandidato()
         self.repositorioPartido = RepositorioPartido()
+        self.repositorioResolucion = RepositorioResolucion()
 
     # Funcion que trae la lista de todos los candidatos con sus atributos(READ)
     def index(self):
@@ -30,7 +33,7 @@ class ControladorCandidato():
         candidatoActual.nombre = infoCandidato["nombre"]
         candidatoActual.apellido = infoCandidato["apellido"]
         candidatoActual.cedula = infoCandidato["cedula"]
-        candidatoActual.resolucion = infoCandidato["resolucion"]
+        #candidatoActual.resolucion = infoCandidato["resolucion"]
         return self.repositorioCandidato.save(candidatoActual)
 
     # Funcion de eliminacion de un candidato por su ID(DELETE)
@@ -40,8 +43,8 @@ class ControladorCandidato():
 
     # Relacion entre Partido y Candidato (1 -> N)
 
-    def asignarPartido(self, id, id_partido):
+    def asignarResolucion(self, id, id_resolucion):
         candidatoActual = Candidato(self.repositorioCandidato.findById(id))
-        partidoActual = Partido(self.repositorioPartido.findById(id_partido))
-        candidatoActual.partido = partidoActual
+        resolucionActual = Resolucion(self.repositorioResolucion.findById(id_resolucion))
+        candidatoActual.resolucion = resolucionActual
         return self.repositorioCandidato.save(candidatoActual)
